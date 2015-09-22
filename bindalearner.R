@@ -1,15 +1,14 @@
 library(mlr)
 library(binda)
-?binda
 
-makeRLeaner.classif.binda <- function(){
+makeRLearner.classif.binda <- function(){
   makeRLearnerClassif(
-    cl = "regr.binda",
+    cl = "classif.binda",
     package = "binda",
     par.set = makeParamSet(
       makeNumericLearnerParam(id = "lambda.freqs")
     ),
-    properties = c("twoclass", "multiclass", "prob")
+    properties = c("twoclass", "multiclass", "numerics", "prob")
   )
 }
 
@@ -18,7 +17,7 @@ trainLearner.classif.binda = function(.learner, .task, .subset, .weights = NULL,
   dat <- getTaskData(.task, .subset)
   taN <- getTaskTargetNames(.task, .subset)
   tar <- getTaskTargets(.task, .subset)
-  binda(as.matrix(dat[setdiff(names(dat), taN)]), tar)
+  binda::binda(as.matrix(dat[setdiff(names(dat), taN)]), tar)
 }
 
 predictLearner.classif.binda <- function(.learner, .model, .newdata, ...){
@@ -28,3 +27,5 @@ predictLearner.classif.binda <- function(.learner, .model, .newdata, ...){
   else
     return(erg$posterior)
 }
+
+lrn <- makeLearner("classif.binda")
