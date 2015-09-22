@@ -8,15 +8,14 @@ makeRLearner.classif.binda <- function(){
     par.set = makeParamSet(
       makeNumericLearnerParam(id = "lambda.freqs")
     ),
-    properties = c("twoclass", "multiclass", "numerics", "prob")
+    properties = c("twoclass", "multiclass", "prob", "numerics")
   )
 }
 
-
 trainLearner.classif.binda = function(.learner, .task, .subset, .weights = NULL, ...){
   dat <- getTaskData(.task, .subset)
-  taN <- getTaskTargetNames(.task, .subset)
-  tar <- getTaskTargets(.task, .subset)
+  taN <- getTaskTargetNames(.task)
+  tar <- getTaskTargets(.task)
   binda::binda(as.matrix(dat[setdiff(names(dat), taN)]), tar)
 }
 
@@ -28,4 +27,3 @@ predictLearner.classif.binda <- function(.learner, .model, .newdata, ...){
     return(erg$posterior)
 }
 
-lrn <- makeLearner("classif.binda")
