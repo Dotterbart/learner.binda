@@ -12,7 +12,7 @@ makeRLearner.classif.binda <- function(){
   )
 }
 
-trainLearner.classif.binda = function(.learner, .task, .subset, .weights = NULL, ...){
+trainLearner.classif.binda <- function(.learner, .task, .subset, .weights = NULL, ...){
   dat <- getTaskData(.task, .subset)
   taN <- getTaskTargetNames(.task)
   tar <- getTaskTargets(.task)
