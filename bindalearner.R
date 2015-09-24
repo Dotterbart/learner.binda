@@ -20,7 +20,15 @@ trainLearner.classif.binda = function(.learner, .task, .subset, .weights = NULL,
 }
 
 predictLearner.classif.binda <- function(.learner, .model, .newdata, ...){
-  erg <- predict(.model$learner.model, newdata = .newdata, ...)
+
+erg <- predict(.model$learner.model, newdata = .newdata, ...)
+
+#  erg <- predict(.model$learner.model, as.matrix(.newdata), ...)
+  
+#  dat <- getTaskData(.newdata)
+#  taN <- getTaskTargetNames(.newdata)
+#  erg <- predict(.model$learner.model, as.matrix(dat[setdiff(names(dat), taN)]), ...)
+  
   if (learner$predict.type == "response")
     return(erg$class)
   else
